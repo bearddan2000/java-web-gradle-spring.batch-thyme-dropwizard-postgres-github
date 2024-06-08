@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header"/>
+</head>
+<body>
+<div th:replace="fragments/nav :: nav"/>
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <span th:replace="fragments/customToggle :: mytoggle(title='All')"/>
+      </li>
+      <li class="nav-item">
+        <span th:replace="fragments/customToggle :: mytoggle(title='Language')"/>
+      </li>
+      <li class="nav-item">
+        <span th:replace="fragments/customToggle :: mytoggle(title='Platform')"/>
+      </li>
+      <li class="nav-item">
+        <span th:replace="fragments/customToggle :: mytoggle(title='Build')"/>
+      </li>
+      <li class="nav-item">
+        <span th:replace="fragments/customToggle :: mytoggle(title='Technology')"/>
+      </li>
+      <li class="nav-item">
+        <span th:replace="fragments/customToggle :: mytoggle(title='Description')"/>
+      </li>
+      <li class="nav-item">
+        <span th:replace="fragments/customToggle :: mytoggle(title='Keywords')"/>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-11">
+      <table id="dataTable" class="display">
+         <!-- Header Table -->
+         <thead>
+              <tr>
+                  <th>
+                    <div th:replace="fragments/customFilter :: myfilter(title='Language')"/>
+                  </th>
+                  <th>
+                    <div th:replace="fragments/customFilter :: myfilter(title='Platform')"/>
+                  </th>
+                  <th>
+                    <div th:replace="fragments/customFilter :: myfilter(title='Build')"/>
+                  </th>
+                  <th>
+                    <div th:replace="fragments/customFilter :: myfilter(title='Technology')"/>
+                  </th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>
+                    <div th:replace="fragments/customFilter :: myfilter(title='Keywords')"/>
+                  </th>
+              </tr>
+          </thead>
+          <!-- Footer Table -->
+          <tfoot>
+              <tr>
+                  <th th:each="column : ${columnNames}" th:text="${column}"></th>*
+              </tr>
+          </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+<script th:src="|/js/common-func.js|"></script>
+<script th:src="|/js/menu/LangMenu.js|"></script>
+<script th:src="|/js/menu/TechMenu.js|"></script>
+<script th:src="|/js/filter/BaseFilter.js|"></script>
+<script th:src="|/js/filter/ColorFilter.js|"></script>
+<script th:src="|/js/filter/KeywordsFilter.js|"></script>
+<script th:src="|/js/${dataTable}.js|"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="nav">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><span th:text="${title}"/></a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Index</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Site Map</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Docker images</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+.toggle-container {
+  margin-right: 5px;
+  color: white;
+}
+
+/* Pseudo classes */
+/*
+/* LangFilter
+.toggle-container:nth-child(2) {
+  background-color: cadetblue;
+}
+
+/* PlatformFilter
+.toggle-container:nth-child(3) {
+  background-color: cadetblue;
+}
+
+/* BuildFilter
+.toggle-container:nth-child(4) {
+  background-color: lightblue;
+}
+
+/* TechFilter
+.toggle-container:nth-child(5) {
+  background-color: burlywood;
+}
+
+/* KeywordsFilter
+.toggle-container:nth-child(7) {
+  background-color: orange;
+}

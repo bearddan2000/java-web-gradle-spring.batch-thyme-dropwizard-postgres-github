@@ -1,0 +1,9 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<span class="toggle-container tg-sucess" th:fragment="mytoggle(title)">
+    <input type="checkbox" class="toggle-control" data-toggle="toggle" data-on="Visible" data-off="Hidden" checked>
+    <span th:text="${title}"/>
+</span>
+</body>
+</html>

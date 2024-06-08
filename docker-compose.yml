@@ -1,0 +1,136 @@
+version: '3.4'
+services:
+  db:
+    image: postgres:alpine
+    healthcheck:
+      test: "exit 0"
+    environment:
+      - POSTGRES_DB=db_app
+      - POSTGRES_MULTIPLE_SCHEMAS=filter,catagory,keyword,portal
+      - POSTGRES_USER=maria
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ./db/sql:/docker-entrypoint-initdb.d
+
+#  batch:
+#    build: batch
+#    healthcheck:
+#      test: "exit 0"
+#    depends_on:
+#      - db
+#    links:
+#      - "db:db"
+
+#  api-filter:
+#    build: api-filter
+#    healthcheck:
+#      test: "exit 0"
+#    environment:
+#      DB_USER: $API_FILTER_DB_USER
+#      DB_PASSWORD: $API_FILTER_DB_PASSWORD
+#      BASIC_AUTH_USER: $API_FILTER_BASIC_AUTH_USER
+#      BASIC_AUTH_USER_PASSWORD: $API_FILTER_BASIC_AUTH_USER_PASSWORD
+#      BASIC_AUTH_ADMIN: $API_FILTER_BASIC_AUTH_ADMIN
+#      BASIC_AUTH_ADMIN_PASSWORD: $API_FILTER_BASIC_AUTH_ADMIN_PASSWORD
+#    depends_on:
+#      - db
+#    links:
+#      - "db:db"
+#
+#  api-keywords:
+#    build: api-keywords
+#    healthcheck:
+#      test: "exit 0"
+#    environment:
+#      DB_USER: $API_KEYWORD_DB_USER
+#      DB_PASSWORD: $API_KEYWORD_DB_PASSWORD
+#      BASIC_AUTH_USER: $API_KEYWORD_BASIC_AUTH_USER
+#      BASIC_AUTH_USER_PASSWORD: $API_KEYWORD_BASIC_AUTH_USER_PASSWORD
+#      BASIC_AUTH_ADMIN: $API_KEYWORD_BASIC_AUTH_ADMIN
+#      BASIC_AUTH_ADMIN_PASSWORD: $API_KEYWORD_BASIC_AUTH_ADMIN_PASSWORD
+#    depends_on:
+#      - db
+#    links:
+#      - "db:db"
+#
+#  api-catagory:
+#    build: api-catagory
+#    healthcheck:
+#      test: "exit 0"
+#    environment:
+#      DB_USER: $API_CATAGORY_DB_USER
+#      DB_PASSWORD: $API_CATAGORY_DB_PASSWORD
+#      BASIC_AUTH_USER: $API_CATAGORY_BASIC_AUTH_USER
+#      BASIC_AUTH_USER_PASSWORD: $API_CATAGORY_BASIC_AUTH_USER_PASSWORD
+#      BASIC_AUTH_ADMIN: $API_CATAGORY_BASIC_AUTH_ADMIN
+#      BASIC_AUTH_ADMIN_PASSWORD: $API_CATAGORY_BASIC_AUTH_ADMIN_PASSWORD
+#    depends_on:
+#      - db
+#    links:
+#      - "db:db"
+#
+#  api-portal:
+#    build: api-portal
+#    healthcheck:
+#      test: "exit 0"
+#    environment:
+#      DB_USER: $API_PORTAL_DB_USER
+#      DB_PASSWORD: $API_PORTAL_DB_PASSWORD
+#      BASIC_AUTH_USER: $API_PORTAL_BASIC_AUTH_USER
+#      BASIC_AUTH_USER_PASSWORD: $API_PORTAL_BASIC_AUTH_USER_PASSWORD
+#      BASIC_AUTH_ADMIN: $API_PORTAL_BASIC_AUTH_ADMIN
+#      BASIC_AUTH_ADMIN_PASSWORD: $API_PORTAL_BASIC_AUTH_ADMIN_PASSWORD
+#    ports:
+#      - 90:8080
+#    depends_on:
+#      - db
+#    links:
+#      - "db:db"
+#
+#  web:
+#    build: web
+#    ports:
+#      - 8080
+#    labels:
+#      - traefik.enable=true
+#      - traefik.http.routers.myapp.tls=true
+#      - traefik.http.routers.myapp.rule=Hos t("web.local")
+#    depends_on:
+#      - api-filter
+#      - api-keywords
+#      - api-catagory
+#      - api-portal
+#    links:
+#      - "api-filter:api-filter"
+#      - "api-keywords:api-keywords"
+#      - "api-catagory:api-catagory"
+#      - "api-portal:api-portal"
+
+  adminer:
+    image: adminer
+    restart: always
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 83:8080
+    depends_on:
+      - db
+    links:
+      - "db:db"
+
+#  traefik:
+#    image: "traefik:v2.4"
+#    container_name: "traefik"
+#    labels:
+#     - "traefik.enable=true"
+#     - "traefik.http.routers.traefik=true"
+#    ports:
+#      # HTTPS / SSL port
+#      - "443:443"
+#      # The Traefik Web UI port (enabled by api:insecure: true in traefik.yml)
+#      - "8080:8080"
+#    volumes:
+#     - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+#     - ./traefik/config.yml:/etc/traefik/config.yml:ro
+#     - ./traefik/cert:/etc/certs:ro
+#     - /var/run/docker.sock:/var/run/docker.sock:ro

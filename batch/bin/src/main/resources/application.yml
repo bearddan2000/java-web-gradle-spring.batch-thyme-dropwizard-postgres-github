@@ -1,0 +1,58 @@
+#######################
+# Spring boot properties
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+########################
+
+
+#logging:
+#  level:
+#    org.springframework: ERROR
+#    example: INFO
+#  pattern:
+#    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+#    file: "%d %p %c{1.} [%t] %m%n"
+#  file: app.log
+hibernate:
+  jdbc:
+    batch_size: 5
+  order_inserts: true
+  
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: true
+
+  data:
+    jpa:
+      repositories:
+        enabled: true
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  datasource:
+    url: jdbc:postgresql://db/db_app
+    driver-class-name: org.postgresql.Driver
+    username: maria
+    password: pass
+    initialization-mode: always
+
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: false
+
+  sql:
+    init:
+      mode: always
